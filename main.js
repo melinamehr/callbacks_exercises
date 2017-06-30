@@ -1,9 +1,11 @@
+// an array of hashes (in js it's an array of objects)
 var transactions = [
   {
     type: 'sale',
     paymentMethod: 'cash',
     customer: 'Isaac Asimov',
     items: [
+      // key called items but value is another array of objects
       { name: 'Byte', price: 1.00 },
       { name: 'Bit', price: 0.125 }
     ]
@@ -120,6 +122,7 @@ var totalTransactions = transactions.length;
 console.log( 'The total number of transactions is:', totalTransactions );
 
 
+
 // --------------------------------------------------
 // QUESTION 01
 // --------------------------------------------------
@@ -149,6 +152,13 @@ var numSales;
   P.S.
   The breakdown above takes up a lot of space, feel free to move it to the top or bottom of the file!
 */
+var aSale = function(transaction) {
+  return transaction.type === 'sale';
+}
+
+var salesTransactions = transactions.filter(aSale);
+
+  numSales = salesTransactions.length;
 
 console.log( 'The total number of sales is:', numSales );
 
@@ -159,7 +169,14 @@ console.log( 'The total number of sales is:', numSales );
 /*
   Calculate the total number of 'purchases'.
 */
+var aPurchase = function(transaction) {
+  return transaction.type === 'purchase';
+}
+
 var numPurchases;
+  var purchasesTransactions = transactions.filter(aPurchase);
+
+  numPurchases = purchasesTransactions.length;
 
 console.log( 'The total number of purchases is:', numPurchases );
 
@@ -173,7 +190,16 @@ console.log( 'The total number of purchases is:', numPurchases );
   HINT(S):
   - Don't forget that 'purchases' can also be made in 'cash'!
 */
+
+var aSale = function(transaction) {
+  return transaction.paymentMethod === 'cash';
+}
+
 var numCashSales;
+  var totalCashSales = transactions.filter(aSale);
+
+  numCashSales = totalCashSales.length;
+
 
 console.log( 'The total number of cash sales is:', numCashSales );
 
@@ -186,8 +212,18 @@ console.log( 'The total number of cash sales is:', numCashSales );
 
   HINT(S):
   - Make sure to exclude any 'sales' made by 'credit'!
+
 */
+
+var aCredit = function(transaction) {
+  return transaction.paymentMethod === 'credit' &&
+  transaction.type === 'purchase';
+}
+
 var numCreditPurchases;
+  var totalCreditPurchases = transactions.filter(aCredit);
+
+  numCreditPurchases = totalCreditPurchases.length;
 
 console.log( 'The total number of credit purchases is:', numCreditPurchases );
 
